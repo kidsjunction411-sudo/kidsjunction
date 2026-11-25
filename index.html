@@ -3,31 +3,254 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>KidsJunction</title>
-<meta name="description" content="KidsJunction: animated Hindi and English stories and nursery rhymes for kids.">
+<title>KidsJunction – Hindi &amp; English Stories and Rhymes for Kids</title>
+<meta name="description" content="KidsJunction: short animated stories and nursery rhymes for young children, in Hindi and English. Watch free on YouTube, Facebook and Instagram.">
+<meta name="keywords" content="kids stories, nursery rhymes, Hindi kahaniyan, bal kavita, moral stories for kids, Hindi rhymes, English rhymes, KidsJunction">
+<meta property="og:title" content="KidsJunction – Stories &amp; Rhymes for Kids">
+<meta property="og:description" content="Animated Hindi and English stories and nursery rhymes for young children.">
+<meta property="og:image" content="https://kidsjunction411-sudo.github.io/kidsjunction/logo.png">
+<meta property="og:type" content="website">
+<link rel="icon" href="logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&display=swap" rel="stylesheet">
 <style>
-  body { font-family: system-ui, sans-serif; max-width: 720px; margin: 2rem auto; padding: 0 1rem; line-height: 1.6; color: #222; }
-  h1 { color: #e53935; margin-bottom: .2rem; }
-  .tag { color: #666; margin-top: 0; }
-  a { color: #1e88e5; }
-  footer { margin-top: 3rem; font-size: .9rem; color: #666; }
+  :root {
+    --red: #e53935; --orange: #fb8c00; --yellow: #f9a825; --green: #43a047;
+    --blue: #1e88e5; --purple: #8e24aa; --pink: #ec407a; --ink: #263238;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; font-family: 'Baloo 2', 'Nirmala UI', system-ui, sans-serif; color: var(--ink); background: #fffdf5; line-height: 1.55; }
+  a { color: var(--blue); }
+
+  /* ---------- top bar ---------- */
+  nav { position: absolute; inset: 0 0 auto 0; z-index: 3; display: flex; align-items: center; justify-content: space-between; padding: 14px 4vw; }
+  nav .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 1.3rem; color: #fff; text-decoration: none; text-shadow: 0 2px 6px rgba(13,71,161,.45); }
+  nav .brand img { width: 46px; height: 46px; border-radius: 50%; border: 3px solid #fff; box-shadow: 0 3px 10px rgba(0,0,0,.2); }
+  nav ul { list-style: none; display: flex; gap: 6px; margin: 0; padding: 0; }
+  nav ul a { color: #0d47a1; background: rgba(255,255,255,.8); text-decoration: none; font-weight: 700; padding: 6px 14px; border-radius: 999px; }
+  nav ul a:hover { background: #fff; }
+
+  /* ---------- hero (same scene as the YouTube banner) ---------- */
+  .hero { position: relative; min-height: clamp(560px, 92vh, 860px); display: grid; place-items: center; text-align: center; overflow: hidden; padding: 110px 4vw 160px; }
+  .hero svg.scene { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; }
+  .hero .content { position: relative; z-index: 2; }
+  .hero h1 { margin: 0; font-size: clamp(3.4rem, 12vw, 9rem); font-weight: 800; line-height: 1; letter-spacing: 1px;
+    -webkit-text-stroke: 0; paint-order: stroke fill;
+    text-shadow: 0 0 0 #fff, 4px 4px 0 #fff, -4px -4px 0 #fff, 4px -4px 0 #fff, -4px 4px 0 #fff, 0 6px 0 #fff, 0 14px 18px rgba(13,71,161,.35); }
+  .hero h1 span:nth-child(6n+1) { color: var(--red); }
+  .hero h1 span:nth-child(6n+2) { color: var(--orange); }
+  .hero h1 span:nth-child(6n+3) { color: var(--yellow); }
+  .hero h1 span:nth-child(6n+4) { color: var(--green); }
+  .hero h1 span:nth-child(6n+5) { color: var(--blue); }
+  .hero h1 span:nth-child(6n+6) { color: var(--purple); }
+  .ribbon { display: inline-block; margin-top: 18px; background: #ff7043; color: #fff; font-weight: 700; font-size: clamp(1.1rem, 3vw, 1.7rem);
+    padding: 8px 30px; border-radius: 999px; box-shadow: 0 8px 14px rgba(13,71,161,.3); }
+  .cta { margin-top: 30px; display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; }
+  .btn { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; font-weight: 800; font-size: 1.1rem; color: #fff;
+    padding: 12px 26px; border-radius: 999px; box-shadow: 0 6px 0 rgba(0,0,0,.18), 0 10px 18px rgba(0,0,0,.15); transition: transform .15s; }
+  .btn:hover { transform: translateY(-3px); }
+  .btn svg { width: 24px; height: 24px; fill: currentColor; }
+  .yt { background: #ff0000; } .fb { background: #1877f2; } .ig { background: linear-gradient(45deg, #f09433, #dc2743 50%, #bc1888); }
+
+  .cloud { animation: drift 40s linear infinite alternate; }
+  .cloud.slow { animation-duration: 60s; }
+  .sun-rays { transform-origin: 0 0; animation: spin 50s linear infinite; }
+  .balloon { animation: bob 4s ease-in-out infinite alternate; }
+  .balloon:nth-of-type(2) { animation-delay: -1.3s; } .balloon:nth-of-type(3) { animation-delay: -2.6s; }
+  .train { animation: chug 1.2s ease-in-out infinite alternate; }
+  @keyframes drift { to { transform: translateX(160px); } }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  @keyframes bob { to { transform: translateY(-26px); } }
+  @keyframes chug { to { transform: translateY(-4px); } }
+  @media (prefers-reduced-motion: reduce) { .cloud, .sun-rays, .balloon, .train { animation: none; } html { scroll-behavior: auto; } }
+
+  /* ---------- sections ---------- */
+  section { padding: 70px 5vw; }
+  .wrap { max-width: 1080px; margin: 0 auto; }
+  h2 { font-size: clamp(2rem, 5vw, 2.8rem); margin: 0 0 8px; text-align: center; color: var(--purple); }
+  .sub { text-align: center; max-width: 680px; margin: 0 auto 40px; font-size: 1.15rem; color: #546e7a; }
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 22px; }
+  .card { background: #fff; border-radius: 26px; padding: 28px 24px; text-align: center; box-shadow: 0 10px 24px rgba(0,0,0,.07); border-top: 8px solid var(--c); }
+  .card .icon { font-size: 3rem; line-height: 1; }
+  .card h3 { margin: 12px 0 6px; font-size: 1.45rem; color: var(--c); }
+  .card p { margin: 0; color: #546e7a; }
+
+  .langs { background: linear-gradient(180deg, #e1f5fe, #fff9c4); }
+  .lang-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
+  .lang { border-radius: 30px; padding: 34px 30px; color: #fff; box-shadow: 0 12px 24px rgba(0,0,0,.12); }
+  .lang.hi { background: linear-gradient(135deg, #ff7043, #e53935); }
+  .lang.en { background: linear-gradient(135deg, #42a5f5, #8e24aa); }
+  .lang .big { font-size: 3rem; font-weight: 800; line-height: 1; }
+  .lang p { font-size: 1.1rem; margin: 10px 0 0; }
+
+  .trust ul { list-style: none; padding: 0; margin: 0 auto; max-width: 760px; display: grid; gap: 14px; }
+  .trust li { background: #fff; border-radius: 18px; padding: 16px 20px 16px 64px; position: relative; box-shadow: 0 6px 16px rgba(0,0,0,.06); font-size: 1.1rem; }
+  .trust li::before { content: "★"; position: absolute; left: 20px; top: 50%; transform: translateY(-50%); font-size: 1.8rem; color: var(--yellow); }
+
+  .follow { background: #4caf50; color: #fff; text-align: center; position: relative; }
+  .follow h2 { color: #fff; }
+  .follow .sub { color: #e8f5e9; }
+
+  footer { background: #2e7d32; color: #e8f5e9; text-align: center; padding: 30px 5vw; font-size: .95rem; }
+  footer a { color: #fff; }
+  footer .tool { max-width: 720px; margin: 0 auto 10px; opacity: .9; }
+
+  @media (max-width: 640px) {
+    nav ul { display: none; }
+    .hero { min-height: clamp(520px, 86vh, 760px); padding-bottom: 130px; }
+  }
 </style>
 </head>
 <body>
-<h1>KidsJunction</h1>
-<p class="tag">कहानियाँ • कविताएँ • Stories &amp; Rhymes</p>
-<p>KidsJunction makes short, animated, family-friendly stories and nursery rhymes for young children, in Hindi and in English.
-Every story has a small lesson about kindness, sharing, friendship and good habits.</p>
-<h2>Watch</h2>
-<ul>
-  <li><a href="https://www.youtube.com/@KidsJunction_Official">YouTube: @KidsJunction_Official</a></li>
-  <li><a href="https://www.facebook.com/profile.php?id=61597046124813">Facebook: Kids Junction</a></li>
-  <li><a href="https://www.instagram.com/kidsjunction_official/">Instagram: @kidsjunction_official</a></li>
-</ul>
-<h2>KidsJunction Publisher</h2>
-<p>KidsJunction Publisher is the channel's own tool for uploading our videos to our YouTube channel, Facebook Page and
-Instagram account. It is used only by the KidsJunction team, for KidsJunction's own accounts.
-See the <a href="privacy.html">privacy policy</a>.</p>
-<footer>© 2026 KidsJunction</footer>
+
+<nav>
+  <a class="brand" href="#"><img src="logo.png" alt="">KidsJunction</a>
+  <ul>
+    <li><a href="#watch">Watch</a></li>
+    <li><a href="#languages">Languages</a></li>
+    <li><a href="#follow">Follow</a></li>
+  </ul>
+</nav>
+
+<header class="hero">
+  <svg class="scene" viewBox="0 0 2560 1440" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <defs>
+      <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4fc3f7"/><stop offset="0.6" stop-color="#b3e5fc"/><stop offset="1" stop-color="#fff9c4"/></linearGradient>
+      <radialGradient id="sun"><stop offset="0" stop-color="#fff59d"/><stop offset="0.7" stop-color="#ffd54f"/><stop offset="1" stop-color="#ffb300"/></radialGradient>
+      <filter id="sh" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="10" stdDeviation="6" flood-color="#0d47a1" flood-opacity="0.3"/></filter>
+      <g id="cloud"><ellipse cx="0" cy="0" rx="110" ry="55" fill="#fff"/><circle cx="-50" cy="-30" r="55" fill="#fff"/><circle cx="35" cy="-45" r="70" fill="#fff"/></g>
+      <path id="star" d="M0,-30 L9,-9 L30,-9 L13,5 L19,27 L0,14 L-19,27 L-13,5 L-30,-9 L-9,-9Z"/>
+      <path id="ray" d="M0,0 L-40,-260 L40,-260Z"/>
+    </defs>
+    <rect width="2560" height="1440" fill="url(#sky)"/>
+    <g fill="none" stroke-width="38" opacity="0.75" transform="translate(1280,1180)">
+      <path d="M-1000,0 A1000,700 0 0 1 1000,0" stroke="#ef5350"/>
+      <path d="M-962,0 A962,662 0 0 1 962,0" stroke="#ffa726"/>
+      <path d="M-924,0 A924,624 0 0 1 924,0" stroke="#ffee58"/>
+      <path d="M-886,0 A886,586 0 0 1 886,0" stroke="#66bb6a"/>
+      <path d="M-848,0 A848,548 0 0 1 848,0" stroke="#42a5f5"/>
+      <path d="M-810,0 A810,510 0 0 1 810,0" stroke="#ab47bc"/>
+    </g>
+    <g transform="translate(2280,300)">
+      <g fill="#ffd54f" opacity="0.75"><g class="sun-rays">
+        <use href="#ray"/><use href="#ray" transform="rotate(45)"/><use href="#ray" transform="rotate(90)"/><use href="#ray" transform="rotate(135)"/>
+        <use href="#ray" transform="rotate(180)"/><use href="#ray" transform="rotate(225)"/><use href="#ray" transform="rotate(270)"/><use href="#ray" transform="rotate(315)"/>
+      </g></g>
+      <circle r="140" fill="url(#sun)"/>
+      <circle cx="-45" cy="-20" r="14" fill="#5d4037"/><circle cx="45" cy="-20" r="14" fill="#5d4037"/>
+      <path d="M-55,30 Q0,85 55,30" stroke="#5d4037" stroke-width="12" fill="none" stroke-linecap="round"/>
+      <circle cx="-80" cy="25" r="18" fill="#ff8a65" opacity="0.6"/><circle cx="80" cy="25" r="18" fill="#ff8a65" opacity="0.6"/>
+    </g>
+    <g class="cloud"><use href="#cloud" transform="translate(300,260) scale(1.3)"/></g>
+    <g class="cloud slow"><use href="#cloud" transform="translate(900,170) scale(0.9)"/></g>
+    <g class="cloud"><use href="#cloud" transform="translate(1600,220) scale(1.1)"/></g>
+    <path d="M0,1080 Q400,900 800,1060 T1600,1040 T2560,1000 V1440 H0Z" fill="#81c784"/>
+    <path d="M0,1180 Q500,1020 1100,1160 T2560,1120 V1440 H0Z" fill="#4caf50"/>
+    <g transform="translate(200,1250)"><circle r="18" fill="#f06292"/><circle r="8" fill="#ffeb3b"/></g>
+    <g transform="translate(700,1300)"><circle r="18" fill="#ffca28"/><circle r="8" fill="#e65100"/></g>
+    <g transform="translate(1300,1270)"><circle r="18" fill="#ef5350"/><circle r="8" fill="#ffeb3b"/></g>
+    <g transform="translate(1900,1280)"><circle r="18" fill="#ba68c8"/><circle r="8" fill="#ffeb3b"/></g>
+    <g transform="translate(2400,1240)"><circle r="18" fill="#ef5350"/><circle r="8" fill="#ffeb3b"/></g>
+    <g filter="url(#sh)">
+      <g class="balloon"><g transform="translate(150,580)"><path d="M0,65 Q15,180 40,320" stroke="#555" stroke-width="3" fill="none"/><ellipse rx="50" ry="65" fill="#42a5f5"/><ellipse cx="-16" cy="-22" rx="11" ry="18" fill="#fff" opacity="0.5"/></g></g>
+      <g class="balloon"><g transform="translate(250,640)"><path d="M0,70 Q-10,160 10,260" stroke="#555" stroke-width="3" fill="none"/><ellipse rx="55" ry="70" fill="#ef5350"/><ellipse cx="-18" cy="-25" rx="12" ry="20" fill="#fff" opacity="0.5"/></g></g>
+      <g class="balloon"><g transform="translate(360,575)"><path d="M0,70 Q10,170 -15,320" stroke="#555" stroke-width="3" fill="none"/><ellipse rx="55" ry="70" fill="#ffca28"/><ellipse cx="-18" cy="-25" rx="12" ry="20" fill="#fff" opacity="0.5"/></g></g>
+    </g>
+    <g transform="translate(1990,680)" filter="url(#sh)"><g class="train">
+      <g transform="translate(0,90)"><rect width="150" height="100" rx="14" fill="#ab47bc"/><text x="75" y="78" text-anchor="middle" font-family="Baloo 2, sans-serif" font-weight="800" font-size="72" fill="#fff">A</text><circle cx="35" cy="110" r="22" fill="#37474f"/><circle cx="115" cy="110" r="22" fill="#37474f"/></g>
+      <rect x="150" y="160" width="20" height="10" fill="#555"/>
+      <g transform="translate(170,90)"><rect width="150" height="100" rx="14" fill="#26a69a"/><text x="75" y="78" text-anchor="middle" font-family="Baloo 2, Nirmala UI, sans-serif" font-weight="800" font-size="66" fill="#fff">क</text><circle cx="35" cy="110" r="22" fill="#37474f"/><circle cx="115" cy="110" r="22" fill="#37474f"/></g>
+      <rect x="320" y="160" width="20" height="10" fill="#555"/>
+      <g transform="translate(340,0)">
+        <rect x="0" y="40" width="120" height="150" rx="14" fill="#e53935"/>
+        <rect x="18" y="62" width="84" height="60" rx="10" fill="#e1f5fe"/>
+        <rect x="-10" y="28" width="140" height="22" rx="8" fill="#b71c1c"/>
+        <rect x="120" y="100" width="90" height="90" rx="12" fill="#1e88e5"/>
+        <rect x="150" y="55" width="30" height="50" fill="#37474f"/>
+        <circle cx="200" cy="150" r="14" fill="#ffeb3b"/>
+        <circle cx="40" cy="200" r="30" fill="#37474f"/><circle cx="40" cy="200" r="10" fill="#cfd8dc"/>
+        <circle cx="160" cy="200" r="30" fill="#37474f"/><circle cx="160" cy="200" r="10" fill="#cfd8dc"/>
+        <circle cx="165" cy="20" r="22" fill="#fff" opacity="0.9"/><circle cx="140" cy="-20" r="28" fill="#fff" opacity="0.8"/><circle cx="100" cy="-55" r="34" fill="#fff" opacity="0.7"/>
+      </g>
+    </g></g>
+    <g filter="url(#sh)">
+      <use href="#star" fill="#ffeb3b" transform="translate(600,570) scale(1.3) rotate(-12)"/>
+      <use href="#star" fill="#ff7043" transform="translate(1930,560) scale(1.1) rotate(15)"/>
+      <use href="#star" fill="#ec407a" transform="translate(640,850) scale(0.9) rotate(10)"/>
+    </g>
+  </svg>
+
+  <div class="content">
+    <h1 aria-label="KidsJunction"><span>K</span><span>i</span><span>d</span><span>s</span><span>J</span><span>u</span><span>n</span><span>c</span><span>t</span><span>i</span><span>o</span><span>n</span></h1>
+    <div class="ribbon" lang="hi">कहानियाँ • कविताएँ • Stories &amp; Rhymes</div>
+    <div class="cta">
+      <a class="btn yt" href="https://www.youtube.com/@KidsJunction_Official?sub_confirmation=1">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.6 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg>
+        Subscribe on YouTube</a>
+      <a class="btn fb" href="https://www.facebook.com/profile.php?id=61597046124813">Facebook</a>
+      <a class="btn ig" href="https://www.instagram.com/kidsjunction_official/">Instagram</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section id="watch">
+    <div class="wrap">
+      <h2>What kids will love</h2>
+      <p class="sub">Short, colourful, animated videos made for little ones: each one is between one and ten minutes, easy to follow, and full of songs and smiles.</p>
+      <div class="cards">
+        <div class="card" style="--c: var(--red)"><div class="icon">📖</div><h3>Stories · कहानियाँ</h3><p>Moral stories about kindness, sharing, friendship and good habits, with a small lesson at the end.</p></div>
+        <div class="card" style="--c: var(--blue)"><div class="icon">🎵</div><h3>Rhymes · कविताएँ</h3><p>Famous nursery rhymes and bal geet children can sing along to, again and again.</p></div>
+        <div class="card" style="--c: var(--green)"><div class="icon">🐘</div><h3>Animals &amp; Nature</h3><p>Friendly animals, bright forests and sunny villages that make every story an adventure.</p></div>
+        <div class="card" style="--c: var(--purple)"><div class="icon">⚡</div><h3>Quick Shorts</h3><p>One-minute Shorts and Reels: a rhyme or a tiny story for a quick happy break.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="languages" class="langs">
+    <div class="wrap">
+      <h2>Two languages, one happy junction</h2>
+      <p class="sub">Every story and rhyme comes in Hindi and in English, with its own playlist, so children can learn in the language they speak at home, or practise a new one.</p>
+      <div class="lang-row">
+        <div class="lang hi" lang="hi"><div class="big">हिन्दी</div><p>हिन्दी कहानियाँ और बाल कविताएँ — नैतिक शिक्षा के साथ, मज़ेदार अंदाज़ में।</p></div>
+        <div class="lang en"><div class="big">English</div><p>English stories and nursery rhymes with clear, gentle narration, perfect for early learners.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="trust">
+    <div class="wrap">
+      <h2>Made with care for families</h2>
+      <p class="sub">Parents can press play with confidence.</p>
+      <ul>
+        <li>Every video is watched and approved by our team before it goes online.</li>
+        <li>Our YouTube videos are marked <strong>Made for Kids</strong>, so comments and personalised ads are off.</li>
+        <li>Gentle stories with positive values and no scary or unkind content.</li>
+        <li>New videos every week, in both Hindi and English.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="follow" class="follow">
+    <div class="wrap">
+      <h2>Come join the fun!</h2>
+      <p class="sub">Subscribe and follow so you never miss a new story or rhyme.</p>
+      <div class="cta">
+        <a class="btn yt" href="https://www.youtube.com/@KidsJunction_Official?sub_confirmation=1">YouTube @KidsJunction_Official</a>
+        <a class="btn fb" href="https://www.facebook.com/profile.php?id=61597046124813">Facebook: Kids Junction</a>
+        <a class="btn ig" href="https://www.instagram.com/kidsjunction_official/">Instagram @kidsjunction_official</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <p class="tool"><strong>KidsJunction Publisher</strong> is the channel's own tool for uploading our videos to our YouTube channel,
+  Facebook Page and Instagram account. It is used only by the KidsJunction team, for KidsJunction's own accounts.</p>
+  <p><a href="privacy.html">Privacy policy</a> · © 2026 KidsJunction</p>
+</footer>
+
 </body>
 </html>
