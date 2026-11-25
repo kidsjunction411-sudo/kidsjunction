@@ -53,6 +53,7 @@
   .btn:hover { transform: translateY(-3px); }
   .btn svg { width: 24px; height: 24px; fill: currentColor; }
   .yt { background: #ff0000; } .fb { background: #1877f2; } .ig { background: linear-gradient(45deg, #f09433, #dc2743 50%, #bc1888); }
+  .read { background: var(--purple); }
 
   .cloud { animation: drift 40s linear infinite alternate; }
   .cloud.slow { animation-duration: 60s; }
@@ -89,6 +90,12 @@
   .trust li { background: #fff; border-radius: 18px; padding: 16px 20px 16px 64px; position: relative; box-shadow: 0 6px 16px rgba(0,0,0,.06); font-size: 1.1rem; }
   .trust li::before { content: "★"; position: absolute; left: 20px; top: 50%; transform: translateY(-50%); font-size: 1.8rem; color: var(--yellow); }
 
+  .reads { background: #fff3e0; }
+  .reads .cards a { text-decoration: none; color: inherit; padding: 0; overflow: hidden; border-top: 0; }
+  .reads .cards img { width: 100%; aspect-ratio: 16/9; object-fit: cover; display: block; }
+  .reads .cards a div { padding: 14px 18px 20px; }
+  .reads .cards h3 { color: var(--purple); }
+  .reads .more { text-align: center; margin-top: 28px; }
   .follow { background: #4caf50; color: #fff; text-align: center; position: relative; }
   .follow h2 { color: #fff; }
   .follow .sub { color: #e8f5e9; }
@@ -109,6 +116,7 @@
   <a class="brand" href="#"><img src="logo.png" alt="">KidsJunction</a>
   <ul>
     <li><a href="#watch">Watch</a></li>
+    <li><a href="stories/index.html">Read stories</a></li>
     <li><a href="#languages">Languages</a></li>
     <li><a href="#follow">Follow</a></li>
   </ul>
@@ -189,8 +197,9 @@
       <a class="btn yt" href="https://www.youtube.com/@KidsJunction_Official?sub_confirmation=1">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.6 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg>
         Subscribe on YouTube</a>
-      <a class="btn fb" href="https://www.facebook.com/profile.php?id=61597046124813">Facebook</a>
-      <a class="btn ig" href="https://www.instagram.com/kidsjunction_official/">Instagram</a>
+      <a class="btn fb" href="https://www.facebook.com/profile.php?id=61597046124813" title="Open our Facebook Page and tap Follow">Follow on Facebook</a>
+      <a class="btn ig" href="https://www.instagram.com/kidsjunction_official/" title="Open our Instagram and tap Follow">Follow on Instagram</a>
+      <a class="btn read" href="stories/index.html">📚 Read stories</a>
     </div>
   </div>
 </header>
@@ -220,6 +229,15 @@
     </div>
   </section>
 
+  <section id="stories" class="reads">
+    <div class="wrap">
+      <h2>📚 Story time · कहानी का समय</h2>
+      <p class="sub">Every film is also a story to read together, in English and Hindi, with a little question to talk about at the end.</p>
+      <div class="cards" id="latest-stories"></div>
+      <p class="more"><a class="btn read" href="stories/index.html">All stories · सारी कहानियाँ</a></p>
+    </div>
+  </section>
+
   <section class="trust">
     <div class="wrap">
       <h2>Made with care for families</h2>
@@ -238,9 +256,9 @@
       <h2>Come join the fun!</h2>
       <p class="sub">Subscribe and follow so you never miss a new story or rhyme.</p>
       <div class="cta">
-        <a class="btn yt" href="https://www.youtube.com/@KidsJunction_Official?sub_confirmation=1">YouTube @KidsJunction_Official</a>
-        <a class="btn fb" href="https://www.facebook.com/profile.php?id=61597046124813">Facebook: Kids Junction</a>
-        <a class="btn ig" href="https://www.instagram.com/kidsjunction_official/">Instagram @kidsjunction_official</a>
+        <a class="btn yt" href="https://www.youtube.com/@KidsJunction_Official?sub_confirmation=1">Subscribe on YouTube</a>
+        <a class="btn fb" href="https://www.facebook.com/profile.php?id=61597046124813" title="Open our Facebook Page and tap Follow">Follow on Facebook</a>
+        <a class="btn ig" href="https://www.instagram.com/kidsjunction_official/" title="Open our Instagram and tap Follow">Follow on Instagram</a>
       </div>
     </div>
   </section>
@@ -252,5 +270,20 @@
   <p><a href="privacy.html">Privacy policy</a> · © 2026 KidsJunction</p>
 </footer>
 
+<script>
+// Latest three stories from the list the publishing pipeline keeps (stories/stories.json).
+fetch('stories/stories.json').then(function (r) { return r.ok ? r.json() : []; }).then(function (list) {
+  var box = document.getElementById('latest-stories');
+  if (!list.length) { document.getElementById('stories').hidden = true; return; }
+  list.slice(0, 3).forEach(function (s) {
+    var a = document.createElement('a'); a.className = 'card'; a.href = 'stories/' + s.slug + '.html';
+    var img = document.createElement('img'); img.src = 'stories/' + s.slug + '.jpg'; img.alt = ''; img.loading = 'lazy';
+    var d = document.createElement('div');
+    var h = document.createElement('h3'); h.textContent = s.title.en + ' · ' + s.title.hi;
+    var p = document.createElement('p'); p.textContent = s.teaser.en;
+    d.append(h, p); a.append(img, d); box.append(a);
+  });
+}).catch(function () { document.getElementById('stories').hidden = true; });
+</script>
 </body>
 </html>
