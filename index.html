@@ -54,6 +54,20 @@
   .btn svg { width: 24px; height: 24px; fill: currentColor; }
   .yt { background: #ff0000; } .fb { background: #1877f2; } .ig { background: linear-gradient(45deg, #f09433, #dc2743 50%, #bc1888); }
   .read { background: var(--purple); }
+  /* hero: title and ribbon on the rainbow, buttons lower down on the green hills, away from train and balloons */
+  .hero { display: flex; flex-direction: column; padding-bottom: clamp(36px, 7vh, 80px); }
+  .hero .content { flex: 1; display: flex; flex-direction: column; align-items: center; }
+  .hero h1 { margin-top: clamp(10px, 6vh, 70px); }
+  .hero-cta { margin-top: auto; padding-top: 40px; }
+  .social { margin-top: 16px; display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+  .pill { background: rgba(255,255,255,.92); text-decoration: none; font-weight: 800; font-size: .95rem; padding: 7px 18px;
+    border-radius: 999px; box-shadow: 0 4px 10px rgba(0,0,0,.12); transition: transform .15s; }
+  .pill:hover { transform: translateY(-2px); }
+  .pill.fb { color: #1877f2; background: rgba(255,255,255,.92); } .pill.ig { color: #c13584; background: rgba(255,255,255,.92); }
+  /* gentle hover lift on the story cards */
+  .reads .cards a { transition: transform .15s, box-shadow .15s; }
+  .reads .cards a:hover, .reads .cards a:focus-visible { transform: translateY(-4px); box-shadow: 0 16px 28px rgba(0,0,0,.12); }
+  @media (prefers-reduced-motion: reduce) { .btn, .pill, .reads .cards a { transition: none; } .btn:hover, .pill:hover, .reads .cards a:hover { transform: none; } }
 
   .cloud { animation: drift 40s linear infinite alternate; }
   .cloud.slow { animation-duration: 60s; }
@@ -77,6 +91,10 @@
   .card .icon { font-size: 3rem; line-height: 1; }
   .card h3 { margin: 12px 0 6px; font-size: 1.45rem; color: var(--c); }
   .card p { margin: 0; color: #546e7a; }
+  .card { display: flex; flex-direction: column; }
+  .card p.watch { margin-top: auto; padding-top: 16px; display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
+  .wbtn { background: var(--c); color: #fff; text-decoration: none; font-weight: 800; padding: 6px 16px; border-radius: 999px; box-shadow: 0 4px 0 rgba(0,0,0,.15); }
+  .wbtn:hover { filter: brightness(1.08); }
 
   .langs { background: linear-gradient(180deg, #e1f5fe, #fff9c4); }
   .lang-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
@@ -96,6 +114,19 @@
   .reads .cards a div { padding: 14px 18px 20px; }
   .reads .cards h3 { color: var(--purple); }
   .reads .more { text-align: center; margin-top: 28px; }
+
+  .topics { background: linear-gradient(160deg, #e8f5e9, #e3f2fd); }
+  .topic-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 20px; }
+  .topic { display: flex; flex-direction: column; align-items: center; text-align: center; text-decoration: none; color: inherit;
+    background: #fff; border-radius: 26px; padding: 24px 18px; border-bottom: 8px solid var(--c);
+    box-shadow: 0 10px 24px rgba(0,0,0,.07); transition: transform .15s, box-shadow .15s; }
+  .topic:hover, .topic:focus-visible { transform: translateY(-3px); box-shadow: 0 16px 28px rgba(0,0,0,.12); }
+  .topic:focus-visible { outline: 3px solid var(--c); outline-offset: 3px; }
+  .topic .icon { font-size: 3.2rem; line-height: 1; }
+  .topic h3 { margin: 12px 0 0; font-size: 1.35rem; line-height: 1.2; color: var(--c); }
+  .topic .hi { font-weight: 700; font-size: 1.1rem; color: var(--ink); }
+  .topic p { margin: 8px 0 0; color: #546e7a; }
+  @media (prefers-reduced-motion: reduce) { .topic { transition: none; } .topic:hover, .topic:focus-visible { transform: none; } }
   .follow { background: #4caf50; color: #fff; text-align: center; position: relative; }
   .follow h2 { color: #fff; }
   .follow .sub { color: #e8f5e9; }
@@ -106,7 +137,12 @@
 
   @media (max-width: 640px) {
     nav ul { display: none; }
-    .hero { min-height: clamp(520px, 86vh, 760px); padding-bottom: 130px; }
+    .hero { min-height: clamp(520px, 86vh, 760px); padding-bottom: 36px; }
+    .hero-cta { margin-top: 48px; }
+    .btn { font-size: 1rem; padding: 10px 20px; }
+    .ribbon { font-size: .95rem; padding: 6px 16px; }
+    .social { gap: 8px; }
+    .pill { font-size: .82rem; padding: 6px 12px; }
   }
 </style>
 </head>
@@ -117,6 +153,7 @@
   <ul>
     <li><a href="#watch">Watch</a></li>
     <li><a href="stories/index.html">Read stories</a></li>
+    <li><a href="#topics">Topics</a></li>
     <li><a href="#languages">Languages</a></li>
     <li><a href="#follow">Follow</a></li>
   </ul>
@@ -193,13 +230,15 @@
   <div class="content">
     <h1 aria-label="KidsJunction"><span>K</span><span>i</span><span>d</span><span>s</span><span>J</span><span>u</span><span>n</span><span>c</span><span>t</span><span>i</span><span>o</span><span>n</span></h1>
     <div class="ribbon" lang="hi">कहानियाँ • कविताएँ • Stories &amp; Rhymes</div>
-    <div class="cta">
+    <div class="cta hero-cta">
       <a class="btn yt" href="https://www.youtube.com/@KidsJunction_Official?sub_confirmation=1">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.6 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg>
         Subscribe on YouTube</a>
-      <a class="btn fb" href="https://www.facebook.com/profile.php?id=61597046124813" title="Open our Facebook Page and tap Follow">Follow on Facebook</a>
-      <a class="btn ig" href="https://www.instagram.com/kidsjunction_official/" title="Open our Instagram and tap Follow">Follow on Instagram</a>
       <a class="btn read" href="stories/index.html">📚 Read stories</a>
+    </div>
+    <div class="social">
+      <a class="pill fb" href="https://www.facebook.com/profile.php?id=61597046124813" title="Open our Facebook Page and tap Follow">Follow on Facebook</a>
+      <a class="pill ig" href="https://www.instagram.com/kidsjunction_official/" title="Open our Instagram and tap Follow">Follow on Instagram</a>
     </div>
   </div>
 </header>
@@ -210,10 +249,10 @@
       <h2>What kids will love</h2>
       <p class="sub">Short, colourful, animated videos made for little ones: each one is between one and ten minutes, easy to follow, and full of songs and smiles.</p>
       <div class="cards">
-        <div class="card" style="--c: var(--red)"><div class="icon">📖</div><h3>Stories · कहानियाँ</h3><p>Moral stories about kindness, sharing, friendship and good habits, with a small lesson at the end.</p></div>
-        <div class="card" style="--c: var(--blue)"><div class="icon">🎵</div><h3>Rhymes · कविताएँ</h3><p>Famous nursery rhymes and bal geet children can sing along to, again and again.</p></div>
-        <div class="card" style="--c: var(--green)"><div class="icon">🐘</div><h3>Animals &amp; Nature</h3><p>Friendly animals, bright forests and sunny villages that make every story an adventure.</p></div>
-        <div class="card" style="--c: var(--purple)"><div class="icon">⚡</div><h3>Quick Shorts</h3><p>One-minute Shorts and Reels: a rhyme or a tiny story for a quick happy break.</p></div>
+        <div class="card" style="--c: var(--red)"><div class="icon">📖</div><h3>Stories · कहानियाँ</h3><p>Moral stories about kindness, sharing, friendship and good habits, with a small lesson at the end.</p><p class="watch"><a class="wbtn" data-playlist="hi:stories:full" href="https://www.youtube.com/@KidsJunction_Official/videos">▶ हिन्दी</a><a class="wbtn" data-playlist="en:stories:full" href="https://www.youtube.com/@KidsJunction_Official/videos">▶ English</a></p></div>
+        <div class="card" style="--c: var(--blue)"><div class="icon">🎵</div><h3>Rhymes · कविताएँ</h3><p>Famous nursery rhymes and bal geet children can sing along to, again and again.</p><p class="watch"><a class="wbtn" data-playlist="hi:rhymes:full" href="https://www.youtube.com/@KidsJunction_Official/videos">▶ हिन्दी</a><a class="wbtn" data-playlist="en:rhymes:full" href="https://www.youtube.com/@KidsJunction_Official/videos">▶ English</a></p></div>
+        <div class="card" style="--c: var(--green)"><div class="icon">🐘</div><h3>Animals &amp; Nature</h3><p>Friendly animals, bright forests and sunny villages that make every story an adventure.</p><p class="watch"><a class="wbtn" data-playlist="hi:stories:full" href="https://www.youtube.com/@KidsJunction_Official/videos">▶ हिन्दी</a><a class="wbtn" data-playlist="en:stories:full" href="https://www.youtube.com/@KidsJunction_Official/videos">▶ English</a></p></div>
+        <div class="card" style="--c: var(--purple)"><div class="icon">⚡</div><h3>Quick Shorts</h3><p>One-minute Shorts and Reels: a rhyme or a tiny story for a quick happy break.</p><p class="watch"><a class="wbtn" data-playlist="hi:*:short" href="https://www.youtube.com/@KidsJunction_Official/shorts">▶ हिन्दी</a><a class="wbtn" data-playlist="en:*:short" href="https://www.youtube.com/@KidsJunction_Official/shorts">▶ English</a></p></div>
       </div>
     </div>
   </section>
@@ -235,6 +274,20 @@
       <p class="sub">Every film is also a story to read together, in English and Hindi, with a little question to talk about at the end.</p>
       <div class="cards" id="latest-stories"></div>
       <p class="more"><a class="btn read" href="stories/index.html">All stories · सारी कहानियाँ</a></p>
+    </div>
+  </section>
+
+  <section id="topics" class="topics">
+    <div class="wrap">
+      <h2>Topics · विषय</h2>
+      <p class="sub">Stories about the things that matter most to little hearts.</p>
+      <div class="topic-grid">
+        <a class="topic" href="stories/index.html?topic=family" style="--c: var(--orange)"><span class="icon" aria-hidden="true">🏡</span><h3>Family</h3><span class="hi" lang="hi">परिवार</span><p>Love, care and laughter shared at home.</p></a>
+        <a class="topic" href="stories/index.html?topic=parents" style="--c: var(--red)"><span class="icon" aria-hidden="true">🙏</span><h3>Respect for parents</h3><span class="hi" lang="hi">माता-पिता का सम्मान</span><p>Listening to, thanking and helping Mummy and Papa.</p></a>
+        <a class="topic" href="stories/index.html?topic=siblings" style="--c: var(--purple)"><span class="icon" aria-hidden="true">👫</span><h3>Brothers &amp; sisters</h3><span class="hi" lang="hi">भाई-बहन</span><p>Sharing, caring and sticking up for each other.</p></a>
+        <a class="topic" href="stories/index.html?topic=friends" style="--c: var(--blue)"><span class="icon" aria-hidden="true">🤝</span><h3>Friends</h3><span class="hi" lang="hi">दोस्ती</span><p>Being kind, fair and a good friend to everyone.</p></a>
+        <a class="topic" href="stories/index.html?topic=environment" style="--c: var(--green)"><span class="icon" aria-hidden="true">🌳</span><h3>Our environment</h3><span class="hi" lang="hi">पर्यावरण</span><p>Caring for trees, water and animals around us.</p></a>
+      </div>
     </div>
   </section>
 
@@ -271,6 +324,16 @@
 </footer>
 
 <script>
+// Watch cards: every card has a Hindi and an English button. Each opens that language's YouTube playlist
+// once the pipeline has created it (watch/playlists.json, written by the website job); until then it opens
+// the channel's Videos or Shorts tab.
+fetch('watch/playlists.json').then(function (r) { return r.ok ? r.json() : {}; }).then(function (lists) {
+  document.querySelectorAll('[data-playlist]').forEach(function (a) {
+    var p = lists[a.dataset.playlist];
+    if (p && /^https:\/\/www\.youtube\.com\//.test(p.url)) { a.href = p.url; a.title = p.title; }
+  });
+}).catch(function () {});
+
 // Latest three stories from the list the publishing pipeline keeps (stories/stories.json).
 fetch('stories/stories.json').then(function (r) { return r.ok ? r.json() : []; }).then(function (list) {
   var box = document.getElementById('latest-stories');
